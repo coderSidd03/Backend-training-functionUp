@@ -15,7 +15,7 @@ router.get('/students', function (req, res){
     res.send(students)
 })
 
-router.get('/student-details/:name', function(req, res){
+router.get('/student-details/:name/:age', function(req, res){
     /*
     params is an attribute inside request that contains 
     dynamic values.
@@ -29,10 +29,16 @@ router.get('/student-details/:name', function(req, res){
     // JSON strigify function helps to print an entire object
     // We can use any ways to print an object in Javascript, JSON stringify is one of them
     console.log("This is the request "+ JSON.stringify(requestParams))
+    //(req.params) is stores an object like key value pairs
+    // here (req.params)
+    // http://localhost:3000/student-details/sid/27
+    // storing the dynamic name input iside an object with :name and :age as key and the given name and given age as value
     let studentName = requestParams.name
+    let studentAge = requestParams.age
     console.log('Name of the student is ', studentName)
     
-    res.send('Dummy response')
-})
+    let studentDetails = studentName + " " + studentAge 
+    res.send(studentDetails)
+});
 
 module.exports = router;
