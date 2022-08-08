@@ -37,7 +37,7 @@ router.get('/student-details/:name/:age', function(req, res){
     let studentAge = requestParams.age
     console.log('Name of the student is ', studentName)
     
-    let studentDetails = studentName + " " + studentAge 
+    let studentDetails = studentName + " " + studentAge
     res.send(studentDetails)
 });
 
