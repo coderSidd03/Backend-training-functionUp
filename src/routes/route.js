@@ -13,7 +13,7 @@ router.get('/movies/:indexNumber', function (req, res) {
     let requestParams = req.params
     let number = requestParams.indexNumber;
     (number > movies.length) ?
-        res.send('>> use valid index between < 1 to ' + movies.length + ' > to get data \t >> check full collection http://localhost:3000/movies') : res.send(movies[number - 1])
+        res.send('>> use valid index between < 1 to ' + movies.length + ' > to get data \t >> check full collection http://localhost:3000/movies') : res.send(">> " +number+ " >> "+ movies[number - 1])
 });
 
 
@@ -62,8 +62,14 @@ router.get('/films/:filmId', function (req, res) {
     ]
 
     let requestParams = req.params;
-    let id = requestParams.filmId;
-    (id > films.length) ? res.send('>> No movie exists with this id \n check films : http://localhost:3000/films') : res.send(films[id-1]);
+    let reqId = requestParams.filmId;
+    // (reqId > films.length) ? res.send('>> No movie exists with this id \n check films : http://localhost:3000/films') : res.send(films[id-1]);
+
+    for (let i=0; i<films.length; i++) {
+        let element = films[i];
+        if (element.id == reqId) { res.send(films[reqId-1]); }
+    }
+    res.send('>> No movie exists with this id \n check films : http://localhost:3000/films')
 });
 
 
