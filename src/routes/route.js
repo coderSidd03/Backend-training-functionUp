@@ -35,6 +35,15 @@ router.get("/shoes", function(req, res){
 })
 
 // uses query params
+// uses query params
+// in query param we basically filters out data from database
+// for this below code we can take value with state, gender, district from the url
+
+// localhost:3000/candidates?gender=female&state=west bengal&district=hooghly
+
+//as we can see above through that hitpoint with filters we can getcertaing outputs with a lot more precesion 
+//and storing req.query.gender to a variable gender here and same for all so to use this variable inside code  
+
 router.get('/candidates', function(req, res){
     console.log('Query paramters for this request are '+JSON.stringify(req.query))
     let gender = req.query.gender
