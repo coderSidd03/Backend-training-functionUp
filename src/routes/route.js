@@ -28,88 +28,102 @@ const router = express.Router();
 //     res.send(requiredMovie)
 // })
 
-router.get("/shoes", function(req, res){
+router.get('/shoes', (req, res) => {
+    
     let queryParams = req.query
     let brand = queryParams.brand
-    res.send("dummy response")
+    let size = queryParams.size
+    let color = queryParams.color
+    let pattern = queryParams.pattern
+    console.log(">> brand  -> ", brand)
+    console.log(">> size  -> ", size)
+    console.log(">> color  -> ", color)
+    console.log(">> pattern  ->", pattern)
+    res.send('dummy response')
 })
 
-// uses query params
+
 // uses query params
 // in query param we basically filters out data from database
 // for this below code we can take value with state, gender, district from the url
 
 // localhost:3000/candidates?gender=female&state=west bengal&district=hooghly
 
+//gender=female&state=west bengal&district=hooghly      >>these are like key & value
 //as we can see above through that hitpoint with filters we can getcertaing outputs with a lot more precesion 
 //and storing req.query.gender to a variable gender here and same for all so to use this variable inside code  
 
-router.get('/candidates', function(req, res){
-    console.log('Query paramters for this request are '+JSON.stringify(req.query))
+
+router.get('/candidates', function (req, res) {
+    console.log('Query paramters for this request are ' + JSON.stringify(req.query))
     let gender = req.query.gender
     let state = req.query.state
     let district = req.query.district
-    console.log('State is '+state)
-    console.log('Gender is '+gender)
-    console.log('District is '+district)
-    let candidates = ['Akash','Suman']
+    console.log('State is ' + state)
+    console.log('Gender is ' + gender)
+    console.log('District is ' + district)
+    let candidates = ['Akash', 'Suman']
     res.send(candidates)
 })
 
+
+
 // use path param
-// router.get('/candidates/:canidatesName', function(req, res){
-//     console.log('The request objects is '+ JSON.stringify(req.params))
-//     console.log('Candidates name is '+req.params.canidatesName)
-//     res.send('Done')
-// })
+// here we take value from hit points in url directly in mentioned variable name
+// here  :canidatesName
+router.get('/candidates/:canidatesName', function (req, res) {
+    console.log('The request objects is ' + JSON.stringify(req.params))
+    console.log('Candidates name is ' + req.params.canidatesName)
+    res.send('Done')
+})
 
-// router.get("/films", function(req, res){
-//     const films = [ {
+// router.get("/films", function (req, res) {
+//     const films = [{
 //         "id": 1,
 //         "name": "The Shining"
-//        }, {
+//     }, {
 //         "id": 2,
 //         "name": "Incendies"
-//        }, {
+//     }, {
 //         "id": 3,
 //         "name": "Rang de Basanti"
-//        }, {
+//     }, {
 //         "id": 4,
 //         "name": "Finding Nemo"
-//        }]
-//        //send all the films
-//       res.send(films) 
+//     }]
+//     //send all the films
+//     res.send(films)
 // })
 
-// router.get("/films/:filmId", function(req, res){
-//     const films = [ {
+// router.get("/films/:filmId", function (req, res) {
+//     const films = [{
 //         "id": 1,
 //         "name": "The Shining"
-//        }, {
+//     }, {
 //         "id": 2,
 //         "name": "Incendies"
-//        }, {
+//     }, {
 //         "id": 3,
 //         "name": "Rang de Basanti"
-//        }, {
+//     }, {
 //         "id": 4,
 //         "name": "Finding Nemo"
-//        }]
+//     }]
 
-//        let filmId = req.params.filmId
+//     let filmId = req.params.filmId
 
-//        //iterate all the films
-//        //search for a film whose id matches with the id recevied in request
-//        for(let i = 0; i < films.length; i++){
-//            let film = films[i]
-//            if(film.id == filmId) {
-//                //if there is a match return the response from here
-//                return res.send(film)
-//            }
-//        }
+//     //iterate all the films
+//     //search for a film whose id matches with the id recevied in request
+//     for (let i = 0; i < films.length; i++) {
+//         let film = films[i]
+//         if (film.id == filmId) {
+//             //if there is a match return the response from here
+//             return res.send(film)
+//         }
+//     }
 
-//        //if there is no match give an error response
-//        res.send("The film id doesn't match any movie")
+//     //if there is no match give an error response
+//     res.send("The film id doesn't match any movie")
 // })
 
 module.exports = router;
