@@ -34,27 +34,36 @@ let players =
     ]
 
 
+// easy approach :
+// router.post('/players', (req, res) => {
+
+//     let name = req.body.name;
+//     for (var i in players) {
+//         let player = players[i];
+//         if (name == player.name) {
+//             res.send(">> Player is already existed")
+//             break;
+//         }
+//     }
+//     players.push(req.body)
+//     res.send(players)
+// });
 
 
+
+// higher order function approach
 router.post('/players', (req, res) => {
 
     let name = req.body.name;
-
-    for (var i in players) {
-        let player = players[i];
-        if (name == player.name) {
-            res.send(">> Player is already existed")
-        }
+    let player = players.find((element) => element.name == name)
+    
+    if (player) {
+        res.send(">> Player is already existed")
+    } else {
+        players.push(req.body)
+        res.send(players);
     }
-
-    players.push(req.body)
-    res.send('>> player added')
-    console.log(players)
 });
-
-
-
-
 
 
 
