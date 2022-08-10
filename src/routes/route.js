@@ -3,40 +3,54 @@ const express = require('express');
 const router = express.Router();
 
 
-//  Q1. -write an api which gives the missing number in an array of integers starting from 1….e.g [1,2,3,5,6,7] : 4 is missing
-router.get('/sol1', (req, res) => {
-    let arr = [1, 2, 3, 5, 6, 7];
-    let total = 0;
+//post api syntax
+//we have to use 
+// router.post
 
-    for (let i=0; i<arr.length; i++) {
-        total = total + (arr[i]);
+router.post('/test-post', function(req,res) {
+    res.send([23,45,6])
+});
+
+//sending object
+router.post('/test-post-obj', function(req,res) {
+    res.send( { msg: 'hi', status: true } )
+});
+
+
+// if we want to send confidential or secured information
+// like username & password
+// we typically send this datas inside body
+// select post > body > raw > JSON (from dropdown)
+// then type Json data like key value pairs
+/*
+    {
+        "user": "sid"
+        "password": "1234"
     }
+*/
 
-    let lastElem = arr.pop();
-    let allElemSum = (lastElem * (lastElem + 1)) / 2;
-    let missingElem = allElemSum - total;
+router.post('/test-post-body', function(req,res) {
+    let pwd = req.body.password
+    let id = req.body.user;
+    console.log(id, pwd)
+    
+    console.log(req.body)
+    res.send( { msg: 'hi', status: true } )
+});
 
-    res.send(">> the missing element inside array is : " + missingElem);
+
+
+
+// take input in a post request and add it to an array and return the new array
+router.post('/test-post-4', function (req, res) {
+    let arr = [12 , 'functionUp']
+    let ele = req.body.element
+    arr.push(ele)
+    
+    res.send( {msg: 'dummy'} );
 })
 
 
 
-//  Q2. -write an api which gives the missing number in an array of integers starting from anywhere….e.g [33, 34, 35, 37, 38]: 36 is missing
-router.get('/sol2', (req, res) => {
 
-    let arr = [33, 34, 35, 37, 38];
-    let length = arr.length
-    let total = 0;
-
-    for (let i in arr) {
-        total += arr[i];
-    }
-
-    let frstElem = arr[0];
-    let lastElem = arr.pop()
-    let allElemSum = (length + 1) * (frstElem + lastElem) / 2;
-    let missingElem = allElemSum - total;
-
-    res.send(">> the missing element inside array is : " + missingElem);
-})
 module.exports = router;
