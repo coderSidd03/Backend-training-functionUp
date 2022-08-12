@@ -2,14 +2,16 @@ const express = require('express');
 var bodyParser = require('body-parser');
 
 const route = require('./routes/route.js');
-const { default: mongoose } = require('mongoose');
+// const { default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
+
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb+srv://functionUp:cszjqDBOWDuVK5I9@cluster0.ge3cm6p.mongodb.net/sidd-01?retryWrites=true&w=majority", 
+mongoose.connect("mongodb+srv://functionUp:cszjqDBOWDuVK5I9@cluster0.ge3cm6p.mongodb.net/soumya1?retryWrites=true&w=majority", 
     {
         useNewUrlParser: true
     }
