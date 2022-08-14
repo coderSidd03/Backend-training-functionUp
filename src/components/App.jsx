@@ -6,10 +6,11 @@ import Entry from './Entry'
 
 function createEntry (element) {
   return (
-    <Entry 
-      emoji = {element.emoji}
-      name = {element.name}
-      description = {element.meaning}
+    <Entry
+    key = {element.id}
+    emoji = {element.emoji}
+    name = {element.name}
+    description = {element.meaning}
     />
   );
 }
@@ -23,7 +24,7 @@ function App() {
       </h1>
 
       <dl className="dictionary">
-      {emojipedia.map(createEntry)}
+        {emojipedia.map(createEntry)}
       </dl>
     </div>
   );
