@@ -53,7 +53,6 @@ const rangePriceAuthor = async function (req, res) {
     let id_map = range.map( element => element.author_id );
     let newrange = await authorModel.find( { author_id: id_map } ).select( { author_name: 1, _id: 0 } );
     res.send(newrange);
-
 }
 
 
