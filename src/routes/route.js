@@ -23,4 +23,8 @@ router.get("/getAllBooksData", bookController.getAllBooksData)
 
 router.get("/getBooksWithAuthorDetails", bookController.getBooksWithAuthorDetails)
 
+router.put("/ratingAuthorDecrease", bookController.ratingAuthorDecrease)
+
+router.put("/authorSelectBookRatingChanges", bookController.authorSelectBookRatingChanges)
+
 module.exports = router;
