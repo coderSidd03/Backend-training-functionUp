@@ -45,7 +45,7 @@ app.use( midGlobal)
 etc etc
 
 <!-- JWT BASIC INTRO OF FLOW -->
-<!-- // LOGIN FLOW -->
+// LOGIN FLOW
 
 you punch your userName and password 
 if correct you get loggedIn...
