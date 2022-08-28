@@ -30,7 +30,6 @@ const userLogin = async (req, res) => {
 }
 
 const getUserData = async (req, res) => {
-  let token = req.headers["x-auth-token"]
   let userId = req.params.userId
   let findUserData = await userModel.findById(userId)
   res.send({ status: true, data: findUserData })

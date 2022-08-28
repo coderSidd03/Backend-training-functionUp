@@ -1,5 +1,9 @@
+const JWT = require('jsonwebtoken')
+const userModel = require('../models/userModel')
 
-const tokenChecker = (req, res, next) => {
+
+
+const tokenChecker = async (req, res, next) => {
     // checking header for token
     let token = req.headers["x-auth-token"]
     if (!token) return res.send({ status: false, msg: "required token is missing" })
