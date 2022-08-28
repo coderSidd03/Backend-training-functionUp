@@ -14,7 +14,6 @@ const userLogin = async (req, res) => {
   let userPassword = req.body.password;
 
   let findUser = await userModel.findOne({ emailId: userEmail, password: userPassword })
-
   if (!findUser) return res.send({ status: false, msg: "incorrect emailId or Password " })
 
   let createdToken = JWT.sign(
@@ -31,21 +30,10 @@ const userLogin = async (req, res) => {
 }
 
 const getUserData = async (req, res) => {
-
   let token = req.headers["x-auth-token"]
-  // verifying the token
-  let decodedToken = JWT.verify(token, "plutonium--secret-token--created: soumyadeep chakraborty--")
-  if (!decodedToken) return res.send({ status: false, msg: "token is invalid" })
-
-  // destructuring userId
   let userId = req.params.userId
-  if (!userId) return res.send({ status: false, msg: "userId not found" })
-
-  // find the user in DB
   let findUserData = await userModel.findById(userId)
-  if (!findUserData) return res.send({ status: false, msg: "userId is invalid" })
   res.send({ status: true, data: findUserData })
-
 }
 
 const updateUser = async (req, res) => {
