@@ -1,47 +1,74 @@
-const UserModel= require("../models/userModel")
+const productModel = require("../models/productModel")
+const userModel = require("../models/userModel")
+const orderModel = require("../models/orderModel")
 
 
+// ========================= API's 25th August ==========================
 
+// createProduct
 
-const basicCode= async function(req, res, next) {
-    let tokenDataInHeaders= req.headers.token
-    console.log(tokenDataInHeaders)
+const createProduct = async (req, res) => {
+    let data = req.body
+    const createdProduct = await productModel.create(data)
+    res.send({ data: createdProduct })
+}
 
-    console.log( "HEADER DATA ABOVE")
-    console.log( "hey man, congrats you have reached the Handler")
-    //res.send({ msg: "This is coming from controller (handler)"})
-    next()
+// createUser
+const createUser = async (req, res) => {
+
+    let userData = req.body
+    let freeAppUserData = req.headers['isfreeappuser']
+
+    userData.isFreeAppUser = freeAppUserData
+    const createdUser = await userModel.create(userData)
+
+    // const updateUser = await userModel.findOneAndUpdate(
+    //     { _id: createdUser._id },
+    //     { $set: { isFreeAppUser: freeAppUserData } },
+    //     { new: true }
+    // )
+    res.send({ data: createdUser })
+}
+
+// orderPurchase
+const orderPurchase = async (req, res) => {
+
+    let data = req.body
+    let userId = data.userId
+    let productId = data.productId
+
+    const checkUser = await userModel.findById({_id: userId})                    //.select()    // {_id: userId}
+    const checkProduct = await productModel.findById({_id: productId})           //.select()    // {_id: productId}
+
+    if (!checkUser) res.send({ status: false, err: "userId not valid" })
+    else if (!checkProduct) res.send({ status: false, err: "productId not valid" })
+    else {
+        let checkApp = req.headers.isfreeappuser
+        if(checkApp == 'true') {
+            data.amount = 0
+            let savedData = await orderModel.create(data)
+            res.send({data: savedData})
+        }
+        else if (checkUser.balance >= checkProduct.price) {
+            const updateUserBalance = await userModel.findOneAndUpdate(
+                { _id: userId },
+                { $set: { balance: checkUser.balance - checkProduct.price } },
+                { new: true }
+            )
+            data['amount'] = checkProduct.price
+            data['isFreeAppUser'] = req.headers.isfreeappuser
+
+            // console.log(updateUserBalance)
+            const createdOrder = await orderModel.create(data)
+            res.send({data: createdOrder})
+        }
+        else {
+            res.send({status: false, msg: "Insufficient Balance"})
+        }
     }
 
-const createUser= async function (req, res) {
-    
-    let data= req.body
-    let tokenDataInHeaders= req.headers.token
-    //Get all headers from request
-    console.log("Request headers before modificatiom",req.headers)
-    //Get a header from request
-    console.log(req.headers.batch)
-    console.log(req.headers["content-type"])
-    console.log(tokenDataInHeaders)
-    //Set a header in request
-    req.headers['month']='June' //req.headers.month = "June"
-
-    //Set an attribute in request object
-    req.anything = "everything"
-    
-    
-    console.log("Request headers after modificatiom",req.headers)
-    
-    //Set a header in response
-    res.header('year','2022')
-    res.send({msg: "Hi"})
 }
 
-const getUsersData= async function (req, res) {
-    let allUsers= await UserModel.find()
-    res.send({msg: allUsers})
-}
-
-module.exports.createUser= createUser
-module.exports.getUsersData= getUsersData
-module.exports.basicCode= basicCode
+module.exports.createProduct = createProduct
+module.exports.createUser = createUser
+module.exports.orderPurchase = orderPurchase
