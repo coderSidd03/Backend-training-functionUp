@@ -7,7 +7,7 @@ const authenticate = function (req, res, next) {
     // extracting the token from request's headers
     let token = req.headers['x-auth-token'];
     // checking if not token ..
-    if (!token) return res.status(401).send({ status: false, msg: "token must be present" });
+    if (!token) return res.send({ status: false, msg: "token must be present" });
 
     // else verifying that token
     // verify takes two parameter
@@ -16,7 +16,7 @@ const authenticate = function (req, res, next) {
 
     // checking if not decodedToken .i.e. given token is not a valid token
     // to check => jwt.io
-    if (!decodedToken) res.status(401).send({ status: false, err: "Invalid Token !!!" })
+    if (!decodedToken) res.send({ status: false, err: "Invalid Token !!!" })
     // setting thisdecodedToken in the response headers and passing the value of this function's data stored in decodedToken
     req.decodedToken = decodedToken
 
@@ -38,17 +38,18 @@ const authorise = async function (req, res, next) {
 
     // now checking that both user are same or not (the user requesting and the user has logged in) 
     // if not sending error
-    if (userLoggedIn != requestingUserId) return res.status(402).send({ status: false, err: "user mismatch !! " })
+    if (userLoggedIn != requestingUserId) return res.send({ status: false, err: "user mismatch !! " })
 
     // querying in userModel with the id we got from params
     let userDetails = await userModel.findById(requestingUserId)
     // if id not matched sending error
-    if (!userDetails) return res.status(402).send({ status: false, msg: 'No such user exists' })
+    if (!userDetails) return res.send({ status: false, msg: 'No such user exists' })
 
     // now sending outside the datas collected here to reuse 
     req.userDetails = userDetails
     req.requestingUserId = requestingUserId
     req.userLoggedIn = userLoggedIn
+    
     next()
 }
 
