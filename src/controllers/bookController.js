@@ -23,7 +23,7 @@ const createBook = async function (req, res) {
 // instead it will jump into catch block and execute the code there
 // code in catch block is normallly not executed
 //rather catch block is only executed if there is error in try block
-// the error( along with message++) gets sent to catch block incase there is an error
+// the error( along with message++) gets sent to catch block in case there is an error
 
 
 
