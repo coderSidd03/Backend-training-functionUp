@@ -6,10 +6,8 @@ const axios = require('axios')
 const getTemp = async (req, res) => {
     try {
         // http://api.openweathermap.org/data/2.5/weather?q=London&appid=<useYourOwnAppId>
-
         // let city = req.query.q
         // let appId = req.query.appid
-        // console.log(`query params => ${city} ${appId}`);
         // let options = {
         //     method: 'get',
         //     url : `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${appId}`
@@ -32,7 +30,7 @@ const getTemp = async (req, res) => {
             let tempCelcius = Math.round(tempKelvin - 273.15)
             arr.push({city: city, tempKelvin: tempKelvin, tempCelcius: tempCelcius})
         }
-        arr.sort((a, b) => a.tempCelcius - b.tempCelcius)
+        arr.sort((a, b) => a.tempKelvin - b.tempKelvin)
 
         // res.status(200).send({ status: true, place: city, temp: temp })
         res.status(200).send({status: true, data: arr})
