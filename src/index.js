@@ -6,7 +6,7 @@ const route = require('./routes/route.js');
 const app = express();
 
 const multer= require("multer");
-const { AppConfig } = require('aws-sdk');
+// const { AppConfig } = require('aws-sdk');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
